@@ -1,121 +1,114 @@
-import tkinter as tk
-from tkinter import ttk, messagebox
-import random
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LifeLink AI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #cce5ff, #e6f0fa);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-# Root window setup
-root = tk.Tk()
-root.title("LifeLink AI - Community Support App")
-root.geometry("650x550")
-root.configure(bg="#e6f0fa")  # Soft blue background
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+      text-align: center;
+    }
 
-# Title label
-title_label = tk.Label(
-    root, text="🌐 LifeLink AI 🌱",
-    font=("Segoe UI", 28, "bold"),
-    fg="#004080", bg="#e6f0fa"
-)
-title_label.pack(pady=30)
+    h1 {
+      color: #004080;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
 
-# Frame box with rounded border illusion
-frame = tk.Frame(root, bg="white", bd=2, relief="ridge")
-frame.place(relx=0.5, rely=0.55, anchor="center", width=480, height=400)
+    button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 20px;
+      margin: 10px 0;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
 
-# Styling buttons
-style = ttk.Style()
-style.theme_use("clam")
-style.configure(
-    "RoundedButton.TButton",
-    font=("Segoe UI", 12),
-    padding=10,
-    relief="flat",
-    background="#007acc",
-    foreground="white"
-)
-style.map("RoundedButton.TButton",
-          background=[('active', '#005f99')],
-          relief=[('pressed', 'sunken')])
+    button:hover {
+      background-color: #005f99;
+    }
+  </style>
+</head>
+<body>
 
-# Functions
-def launch_tutor():
-    def start_tutor():
-        topic = topic_entry.get().lower()
-        lessons = {
-            "math": "Let's learn about addition and subtraction!",
-            "science": "Today's topic is the water cycle.",
-            "english": "Let's practice simple past and present tenses."
-        }
-        result = lessons.get(topic, "Sorry, topic not found.")
-        messagebox.showinfo("AI Tutor 📘", result)
+<div class="container">
+  <h1>🌐 LifeLink AI 🌱</h1>
+  <button onclick="launchTutor()">📘 AI Tutor</button>
+  <button onclick="launchClassifier()">🗑️ Waste Classifier</button>
+  <button onclick="launchEmergency()">🚨 Emergency Check</button>
+  <button onclick="launchVolunteer()">🤝 Volunteer Connector</button>
+  <button onclick="launchTip()">🌍 Environmental Tip</button>
+</div>
 
-    popup = tk.Toplevel(root)
-    popup.title("AI Tutor")
-    popup.geometry("300x150")
-    popup.configure(bg="#f0f8ff")
-    tk.Label(popup, text="Enter Topic (Math/Science/English):", bg="#f0f8ff").pack(pady=5)
-    topic_entry = tk.Entry(popup)
-    topic_entry.pack(pady=5)
-    ttk.Button(popup, text="Start Lesson", style="RoundedButton.TButton", command=start_tutor).pack(pady=10)
+<script>
+  function launchTutor() {
+    const topic = prompt("Enter Topic (Math / Science / English):");
+    const lessons = {
+      math: "Let's learn about addition and subtraction!",
+      science: "Today's topic is the water cycle.",
+      english: "Let's practice simple past and present tenses."
+    };
+    const lesson = lessons[topic.toLowerCase()] || "Sorry, topic not found.";
+    alert("📘 AI Tutor\n\n" + lesson);
+  }
 
-def launch_classifier():
-    def classify():
-        item = entry.get().lower()
-        recyclable = ['plastic bottle', 'paper', 'can', 'glass']
-        non_recyclable = ['food', 'diaper', 'tissue']
-        if item in recyclable:
-            result = "♻️ Recyclable"
-        elif item in non_recyclable:
-            result = "🚫 Non-Recyclable"
-        else:
-            result = "❓ Unknown item"
-        messagebox.showinfo("Waste Classifier 🗑️", f"Item: {result}")
+  function launchClassifier() {
+    const item = prompt("Enter item name:");
+    const recyclable = ['plastic bottle', 'paper', 'can', 'glass'];
+    const nonRecyclable = ['food', 'diaper', 'tissue'];
 
-    popup = tk.Toplevel(root)
-    popup.title("Waste Classifier")
-    popup.geometry("300x150")
-    popup.configure(bg="#f0f8ff")
-    tk.Label(popup, text="Enter item name:", bg="#f0f8ff").pack(pady=5)
-    entry = tk.Entry(popup)
-    entry.pack(pady=5)
-    ttk.Button(popup, text="Classify", style="RoundedButton.TButton", command=classify).pack(pady=10)
+    let result;
+    if (recyclable.includes(item.toLowerCase())) {
+      result = "♻️ Recyclable";
+    } else if (nonRecyclable.includes(item.toLowerCase())) {
+      result = "🚫 Non-Recyclable";
+    } else {
+      result = "❓ Unknown item";
+    }
+    alert("🗑️ Waste Classifier\n\nItem: " + result);
+  }
 
-def launch_emergency():
-    status = random.choice(['✅ Normal', '⚠️ Fall Detected', '🔥 Fire Detected'])
-    alert = f"Status: {status}"
-    if status != '✅ Normal':
-        alert += "\nAlert sent to emergency services!"
-    messagebox.showinfo("Emergency Check 🚨", alert)
+  function launchEmergency() {
+    const statuses = ['✅ Normal', '⚠️ Fall Detected', '🔥 Fire Detected'];
+    const status = statuses[Math.floor(Math.random() * statuses.length)];
+    const message = (status !== '✅ Normal') ? status + "\nAlert sent to emergency services!" : status;
+    alert("🚨 Emergency Check\n\n" + message);
+  }
 
-def launch_volunteer():
-    popup = tk.Toplevel(root)
-    popup.title("Volunteer Connect")
-    popup.geometry("300x150")
-    popup.configure(bg="#f0f8ff")
-    tk.Label(popup, text="Connects volunteers with:\n🧓 Elderly\n♿ People of Determination\n🤝 NGOs", bg="#f0f8ff").pack(pady=10)
-    ttk.Button(popup, text="Simulate Match", style="RoundedButton.TButton",
-               command=lambda: messagebox.showinfo("Volunteer Match 🤗", "You’ve been matched with a request in your area!")).pack(pady=10)
+  function launchVolunteer() {
+    alert("🤝 Volunteer Connector\n\nYou’ve been matched with a request in your area!");
+  }
 
-def launch_tips():
-    tips = [
-        "💡 Turn off lights when not needed.",
-        "💧 Use reusable water bottles.",
-        "🗑️ Separate wet and dry waste.",
-        "🌳 Plant a tree in your neighborhood.",
-        "📢 Educate others about recycling."
-    ]
-    tip = random.choice(tips)
-    messagebox.showinfo("Eco Tip 🌍", tip)
+  function launchTip() {
+    const tips = [
+      "💡 Turn off lights when not needed.",
+      "💧 Use reusable water bottles.",
+      "🗑️ Separate wet and dry waste.",
+      "🌳 Plant a tree in your neighborhood.",
+      "📢 Educate others about recycling."
+    ];
+    const tip = tips[Math.floor(Math.random() * tips.length)];
+    alert("🌍 Environmental Tip\n\n" + tip);
+  }
+</script>
 
-# Buttons
-buttons = [
-    ("📘 AI Tutor", launch_tutor),
-    ("🗑️ Waste Classifier", launch_classifier),
-    ("🚨 Emergency Check", launch_emergency),
-    ("🤝 Volunteer Connector", launch_volunteer),
-    ("🌍 Environmental Tip", launch_tips)
-]
-
-for text, command in buttons:
-    ttk.Button(frame, text=text, style="RoundedButton.TButton", command=command).pack(pady=8, ipadx=10)
-
-# Run App
-root.mainloop()
+</body>
+</html>
