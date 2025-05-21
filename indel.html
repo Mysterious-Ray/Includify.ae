@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LifeLink AI</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #cce5ff, #b3d1ff);
+      background: linear-gradient(to right, #a2c4f5, #d0e7ff);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,100 +17,87 @@
 
     .container {
       background: white;
-      padding: 40px;
+      padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       width: 350px;
+      text-align: center;
     }
 
     h1 {
-      color: #005999;
-      font-size: 28px;
-      margin-bottom: 25px;
+      color: #0066cc;
+      margin-bottom: 20px;
     }
 
     button {
       width: 100%;
+      margin: 8px 0;
       padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 30px;
-      background-color: #007acc;
-      color: white;
       font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background-color: #3399ff;
+      color: white;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: 0.3s;
     }
 
     button:hover {
-      background-color: #005c99;
+      background-color: #007acc;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>🌐 LifeLink AI</h1>
+    <button onclick="launchTutor()">📘 AI Tutor</button>
+    <button onclick="launchClassifier()">🗑️ Waste Classifier</button>
+    <button onclick="launchEmergency()">🚨 Emergency Check</button>
+    <button onclick="launchVolunteer()">🤝 Volunteer Connector</button>
+    <button onclick="launchTip()">🌍 Environmental Tip</button>
+  </div>
 
-<div class="container">
-  <h1>🌐 LifeLink AI</h1>
-  <button onclick="launchTutor()">📘 AI Tutor</button>
-  <button onclick="launchClassifier()">🗑️ Waste Classifier</button>
-  <button onclick="launchEmergency()">🚨 Emergency Check</button>
-  <button onclick="launchVolunteer()">🤝 Volunteer Connector</button>
-  <button onclick="launchTip()">🌍 Environmental Tip</button>
-</div>
-
-<script>
-  function launchTutor() {
-    const topic = prompt("Enter a topic (Math / Science / English):");
-    if (!topic) return;
-    const lessons = {
-      math: "Let's learn about addition and subtraction!",
-      science: "Today's topic is the water cycle.",
-      english: "Let's practice simple past and present tenses."
-    };
-    const lesson = lessons[topic.toLowerCase()] || "Sorry, topic not found.";
-    alert("📘 AI Tutor:\n\n" + lesson);
-  }
-
-  function launchClassifier() {
-    const item = prompt("Enter an item (e.g. plastic bottle, paper):");
-    if (!item) return;
-    const recyclable = ['plastic bottle', 'paper', 'can', 'glass'];
-    const nonRecyclable = ['food', 'diaper', 'tissue'];
-    let result;
-    if (recyclable.includes(item.toLowerCase())) {
-      result = "♻️ Recyclable";
-    } else if (nonRecyclable.includes(item.toLowerCase())) {
-      result = "🚫 Non-Recyclable";
-    } else {
-      result = "❓ Unknown item";
+  <script>
+    function launchTutor() {
+      const topic = prompt("Enter a topic (Math / Science / English):");
+      const lessons = {
+        math: "Let’s learn about addition and subtraction!",
+        science: "Today’s topic is the water cycle.",
+        english: "Let’s practice simple past and present tenses."
+      };
+      alert(lessons[topic?.toLowerCase()] || "❌ Topic not found.");
     }
-    alert("🗑️ Waste Classifier:\n\n" + result);
-  }
 
-  function launchEmergency() {
-    const statuses = ['✅ Normal', '⚠️ Fall Detected', '🔥 Fire Detected'];
-    const status = statuses[Math.floor(Math.random() * statuses.length)];
-    const msg = status === '✅ Normal' ? status : `${status}\n🚨 Alert sent to emergency services!`;
-    alert("🚨 Emergency Check:\n\n" + msg);
-  }
+    function launchClassifier() {
+      const item = prompt("Enter an item:");
+      const recyclable = ['plastic bottle', 'paper', 'can', 'glass'];
+      const nonRecyclable = ['food', 'diaper', 'tissue'];
+      let result = "❓ Unknown item";
+      if (recyclable.includes(item?.toLowerCase())) result = "♻️ Recyclable";
+      else if (nonRecyclable.includes(item?.toLowerCase())) result = "🚫 Non-Recyclable";
+      alert(result);
+    }
 
-  function launchVolunteer() {
-    alert("🤝 Volunteer Connector:\n\nYou’ve been matched with someone in need nearby!");
-  }
+    function launchEmergency() {
+      const status = ['✅ Normal', '⚠️ Fall Detected', '🔥 Fire Detected'][Math.floor(Math.random() * 3)];
+      const msg = status === '✅ Normal' ? status : status + "\n🚨 Alert sent!";
+      alert(msg);
+    }
 
-  function launchTip() {
-    const tips = [
-      "💡 Turn off lights when not needed.",
-      "💧 Use reusable water bottles.",
-      "🗑️ Separate wet and dry waste.",
-      "🌳 Plant a tree in your neighborhood.",
-      "📢 Educate others about recycling."
-    ];
-    const tip = tips[Math.floor(Math.random() * tips.length)];
-    alert("🌍 Environmental Tip:\n\n" + tip);
-  }
-</script>
+    function launchVolunteer() {
+      alert("You’ve been matched with someone who needs your help nearby!");
+    }
 
+    function launchTip() {
+      const tips = [
+        "💡 Turn off lights when not needed.",
+        "💧 Use reusable water bottles.",
+        "🗑️ Separate wet and dry waste.",
+        "🌳 Plant a tree in your neighborhood.",
+        "📢 Educate others about recycling."
+      ];
+      alert(tips[Math.floor(Math.random() * tips.length)]);
+    }
+  </script>
 </body>
 </html>
